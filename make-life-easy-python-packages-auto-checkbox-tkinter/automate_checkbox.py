@@ -17,8 +17,8 @@ seq = []
 
 def cr_checkbox(tk_window_object, sequence, bg='white', fg='black', row_lb=0, column_lb=0):
     global vari, seq
+    vari, seq, row_l = [], [], []
     len_seq = len(sequence)
-    row_l = []
     seq = sequence
 
     for y in range(row_lb, len_seq + row_lb):
@@ -26,7 +26,7 @@ def cr_checkbox(tk_window_object, sequence, bg='white', fg='black', row_lb=0, co
 
     for i in range(len_seq):
         vari.append('a' + str(i))
-        vari[i] = IntVar(tk_window_object, value=0)
+        vari[i] = BooleanVar(tk_window_object, value=False)
 
     for i in range(len_seq):
         Checkbutton(tk_window_object, text=sequence[i], variable=vari[i], bg=bg, justify='left', fg=fg).grid(
@@ -35,12 +35,13 @@ def cr_checkbox(tk_window_object, sequence, bg='white', fg='black', row_lb=0, co
     return vari
 
 
-def fetch_cked_val():
-    global vari, seq
+def fetch_cked_val(chbx_obj):
+    global seq
 
     bx_chked = []
-    for t in range(len(vari)):
-        if vari[t].get() == 1:
+    t = 0
+    for t in range(len(seq)):
+        if chbx_obj[t].get() == True:
             bx_chked.append(seq[t])
 
     return bx_chked
